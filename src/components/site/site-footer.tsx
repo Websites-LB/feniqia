@@ -1,67 +1,73 @@
 import Link from "next/link";
 
 import { BackToTop } from "@/components/site/back-to-top";
-import { Seal, Ship } from "@/components/site/logo";
+import { Seal } from "@/components/site/logo";
 import { SITE, mapsUrl, waLink } from "@/lib/site";
 
-/** One field of murex purple, and the way to reach us as the headline: the number itself. */
 export function SiteFooter() {
   return (
-    <footer className="relative flex min-h-[92svh] flex-col overflow-hidden bg-murex-deep text-sand">
-      <div className="wrap flex flex-wrap items-start justify-between gap-x-12 gap-y-8 pt-12 md:pt-16">
-        <div className="grid gap-x-12 gap-y-6 label sm:grid-cols-3" data-reveal>
-          <p className="flex items-start gap-3">
-            <Seal className="w-9 shrink-0 text-brass" />
-            <span>
-              Feniqia
-              <span className="block text-sand/75">Marchand de Liban</span>
-            </span>
-          </p>
-          <p>
-            {SITE.street}, Jbeil
-            <br />
-            <a className="link-underline text-sand/75 hover:text-sand" href={mapsUrl} target="_blank" rel="noreferrer">
-              Directions
-            </a>
-          </p>
-          <p>
-            Open every day
-            <br />
-            <span className="text-sand/75">From breakfast on</span>
-          </p>
+    <footer className="relative bg-pome-deep text-paper">
+      <div className="wrap flex flex-col items-center pt-24 text-center md:pt-28">
+        <Seal className="w-12 text-lantern" />
+        <p className="display mt-6 text-[clamp(2.25rem,4vw,3.25rem)] leading-none tracking-[0.28em]">FENIQIA</p>
+        <p className="sign mt-3 tracking-[0.32em] text-paper/60">Marchand de Liban</p>
+
+        <div className="mt-16 grid w-full max-w-4xl gap-10 border-t border-paper/15 pt-12 sm:grid-cols-3">
+          <div>
+            <p className="sign text-lantern">Address</p>
+            <p className="mt-3 text-paper/85">
+              {SITE.street}, Jbeil (Byblos)
+              <br />
+              <a className="link-underline text-paper/60 hover:text-paper" href={mapsUrl} target="_blank" rel="noreferrer">
+                Get directions
+              </a>
+            </p>
+          </div>
+          <div>
+            <p className="sign text-lantern">Hours</p>
+            <p className="mt-3 text-paper/85">
+              {SITE.hours}
+              <br />
+              <span className="text-paper/60">From breakfast</span>
+            </p>
+          </div>
+          <div>
+            <p className="sign text-lantern">Contact</p>
+            <p className="mt-3 text-paper/85">
+              <a className="link-underline" href={`tel:+${SITE.phone}`}>
+                {SITE.phoneDisplay}
+              </a>
+              <br />
+              <a className="link-underline text-paper/60 hover:text-paper" href={waLink("Marhaba Feniqia!")} target="_blank" rel="noreferrer">
+                WhatsApp
+              </a>
+            </p>
+          </div>
         </div>
-        <BackToTop />
+
+        <div className="mt-14">
+          <BackToTop />
+        </div>
       </div>
 
-      <div className="wrap mt-auto pb-10 pt-24">
-        <div className="flex items-end justify-between gap-6" data-reveal>
-          <p className="label text-sand/75">To book, call</p>
-          <Ship className="w-16 animate-[bob_5s_ease-in-out_infinite] text-brass md:w-24" />
-        </div>
-        <a
-          href={`tel:+${SITE.phone}`}
-          className="display mt-3 block whitespace-nowrap text-[clamp(2.6rem,11.6vw,12rem)] leading-[0.9] text-sand transition-colors duration-500 hover:text-brass"
-          data-reveal
-          data-delay="0.08"
-        >
-          {SITE.phoneDisplay}
-        </a>
-
-        <div className="mt-12 grid gap-3 label text-sand/75 md:grid-cols-3 md:items-center">
-          <p className="flex flex-wrap gap-x-5">
-            <a className="link-underline hover:text-sand" href={waLink("Marhaba Feniqia!")} target="_blank" rel="noreferrer">
-              WhatsApp
-            </a>
-            <a className="link-underline hover:text-sand" href={SITE.instagram} target="_blank" rel="noreferrer">
-              Instagram
-            </a>
-            <Link className="link-underline hover:text-sand" href="/menu">
-              The menu
+      <div className="wrap mt-16 flex flex-wrap items-center justify-between gap-4 border-t border-paper/15 py-6 text-[0.8rem] text-paper/55">
+        <p>© {new Date().getFullYear()} Feniqia, Byblos</p>
+        <p className="flex gap-6">
+          {[
+            ["/menu", "Menu"],
+            ["/our-story", "Our story"],
+            ["/visit", "Visit"],
+            ["/reservations", "Reservations"],
+          ].map(([href, label]) => (
+            <Link key={href} className="link-underline hover:text-paper" href={href}>
+              {label}
             </Link>
-          </p>
-          <p className="md:text-center">Byblos photography from Unsplash</p>
-          <p className="md:text-right">Byblos, {new Date().getFullYear()}</p>
-        </div>
+          ))}
+          <a className="link-underline hover:text-paper" href={SITE.instagram} target="_blank" rel="noreferrer">
+            Instagram
+          </a>
+        </p>
+        <p>Byblos photography from Unsplash</p>
       </div>
     </footer>
   );

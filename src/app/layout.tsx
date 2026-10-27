@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Jost, Marcellus, Noto_Sans_Phoenician } from "next/font/google";
+import { Archivo, Fraunces, Noto_Sans_Phoenician } from "next/font/google";
 
 import { ScrollFx } from "@/components/providers/scroll-fx";
 import { SmoothScroll } from "@/components/providers/smooth-scroll";
@@ -8,9 +8,10 @@ import { SiteHeader } from "@/components/site/site-header";
 
 import "./globals.css";
 
-// Marcellus is cut after Roman inscriptions: the carved-stone voice for a city of carved stone.
-const display = Marcellus({ variable: "--font-marcellus", subsets: ["latin", "latin-ext"], weight: "400" });
-const sans = Jost({ variable: "--font-jost", subsets: ["latin", "latin-ext"], weight: ["300", "400", "500"] });
+// Fraunces at its light, upright cut: a classical serif with some warmth.
+const display = Fraunces({ variable: "--font-fraunces", subsets: ["latin", "latin-ext"], style: ["normal", "italic"], axes: ["SOFT", "WONK", "opsz"] });
+// Archivo, narrowed, for wayfinding; at full width for reading.
+const sans = Archivo({ variable: "--font-archivo", subsets: ["latin", "latin-ext"], axes: ["wdth"] });
 // Only the old letters, as ornament.
 const phoenician = Noto_Sans_Phoenician({ variable: "--font-phoenician-src", subsets: ["phoenician"], weight: "400", preload: false });
 
@@ -20,7 +21,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#1a120c",
+  themeColor: "#f6f2ea",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
@@ -30,7 +31,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         {/* reveals hide content only when scripting is there to show it again */}
         <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
       </head>
-      <body className="grain">
+      <body>
         <SmoothScroll>
           <SiteHeader />
           <main>{children}</main>

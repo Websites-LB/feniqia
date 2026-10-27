@@ -13,6 +13,7 @@ gsap.registerPlugin(ScrollTrigger);
  *   data-reveal="clip"   unmasks upward
  *   data-parallax="0.15" drifts against the scroll by that fraction of its height
  *   data-count="1892"    a figure that counts up once it is seen
+ *   data-draw            an SVG path that draws itself along the scroll
  */
 export function ScrollFx() {
   const path = usePathname();
@@ -42,6 +43,15 @@ export function ScrollFx() {
         );
       });
 
+
+      gsap.utils.toArray<SVGPathElement>("[data-draw]").forEach((el) => {
+        const len = el.getTotalLength();
+        gsap.fromTo(
+          el,
+          { strokeDasharray: len, strokeDashoffset: len },
+          { strokeDashoffset: 0, ease: "none", scrollTrigger: { trigger: el.closest("svg") ?? el, start: "top 80%", end: "bottom 45%", scrub: true } },
+        );
+      });
 
       gsap.utils.toArray<HTMLElement>("[data-count]").forEach((el) => {
         const to = Number(el.dataset.count);

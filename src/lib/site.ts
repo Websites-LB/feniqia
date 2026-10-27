@@ -46,18 +46,3 @@ export const OWN = {
   castle: ig("DbFioa3g7sU"),
   dusk: ig("DebxBoMAMa9"),
 };
-
-/** Their latest posts with their own captions. */
-export const INSTAGRAM: { id: string; kind: "p" | "reel"; caption: string }[] = [
-  { id: "DebxBoMAMa9", kind: "p", caption: "Where the heart of Byblos meets the soul of Lebanese hospitality." },
-  { id: "DejBX90EbE9", kind: "p", caption: "The perfect weekend begins around the table." },
-  { id: "Dewt_bwAuuN", kind: "reel", caption: "Open daily, in the heart of the Byblos souks." },
-  { id: "De84P_6kQaH", kind: "p", caption: "The art of Lebanese dining, served your way." },
-  { id: "DeRkRMKgJ3m", kind: "p", caption: "A taste of tradition, a setting like no other." },
-  { id: "DbFioa3g7sU", kind: "reel", caption: "Where the charm of Byblos meets exceptional dining." },
-  { id: "DerpbTHgLoB", kind: "p", caption: "A new week, the same Feniqia." },
-  { id: "DeG0cVugMvf", kind: "p", caption: "Come for the flavours, stay for the Feniqia experience." },
-  { id: "De1o6g0kdjK", kind: "p", caption: "Your cravings have a destination." },
-  { id: "DeXNT9ekSxx", kind: "p", caption: "In the charm of Byblos, the pleasure of great food." },
-  { id: "Dd_lJ2tDOn5", kind: "p", caption: "In the heart of Byblos. Rooted in Lebanese taste." },
-];

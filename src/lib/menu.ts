@@ -522,6 +522,8 @@ export const SOFT: Course[] = [
 export const SHISHA: Dish[] = [{ name: "Nargile", price: 900 }];
 
 export const dish = (name: string) => FOOD.flatMap((c) => c.dishes).find((d) => d.name === name)!;
+/** Like `dish`, but for anything on the list, drinks included. */
+export const item = (name: string) => [...FOOD, ...SOFT, ...COCKTAILS].flatMap((c) => c.dishes).find((d) => d.name === name)!;
 
 /** The dishes that carry the house's name, for the home page. */
 export const HOUSE_DISHES = ["Hommos Feniqia", "Kebbeh Feniqia", "Halloum fig", "Ras asfour bil karaz", "Feniqia platter", "Basterma roll"].map(dish);

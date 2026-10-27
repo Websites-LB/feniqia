@@ -1,28 +1,23 @@
-/* Hallmark v2.0.0 | custom, brand-led (cedar, sandstone, brass, one field of murex purple) | genre: atmospheric | job: book a table | shape: a hero you dig through (souk, castle, colonnade, harbour, first village), scroll-lit statement, the house dishes, names from the old stories, your name in Phoenician, the bar, the feed, the house, booking | nav: letterhead corners, solid tabs past the hero | footer: the phone number as the headline on murex | signature: scrolling digs down through the ages of the tell | direction: taste-skill place-carries-it, palette and type kept | deal: seed 392668773 */
-/* waive 66: the hero carries a small scroll line, the page is a scroll story | waive 83: photography leads, this is a venue */
+/* Feniqia v4 | quiet luxury in the Old Souk | ground: ivory and warm stone | colour: one oxblood, brass hairlines, deep night for the bar | type: Fraunces light (straight, not wonky) over Archivo, small tracked capitals for wayfinding | shape: through the arch, the kitchen in a sideways walk, the house dishes, the scribe, the bar after dark, reservations | motion kept: Lenis, rising letters, rise and clip reveals, parallax, counters */
 
 @import "tailwindcss";
 
-/* ─── Feniqia tokens: cedar dark, sandstone, brass, and murex, the purple Phoenician traders sold ─── */
 @theme {
-  --color-cedar: oklch(0.17 0.014 55);
-  --color-hold: oklch(0.205 0.017 55);
-  --color-raised: oklch(0.245 0.02 55);
-  --color-sand: oklch(0.92 0.028 80);
-  --color-stone: oklch(0.76 0.03 75);
-  --color-brass: oklch(0.76 0.11 78);
-  --color-brass-deep: oklch(0.6 0.1 70);
-  --color-murex: oklch(0.4 0.13 350);
-  --color-murex-deep: oklch(0.22 0.07 350);
-  --color-rule: oklch(0.33 0.022 60);
-  --color-scrim: oklch(0.17 0.014 55 / 0.55);
+  --color-lime: oklch(0.935 0.016 82);
+  --color-paper: oklch(0.972 0.01 86);
+  --color-dust: oklch(0.88 0.022 78);
+  --color-ink: oklch(0.2 0.015 50);
+  --color-ink-soft: oklch(0.45 0.018 55);
+  --color-pome: oklch(0.43 0.12 25);
+  --color-pome-deep: oklch(0.3 0.08 25);
+  --color-brass: oklch(0.68 0.075 75);
+  --color-night: oklch(0.17 0.02 260);
+  --color-night-up: oklch(0.22 0.022 260);
+  --color-lantern: oklch(0.82 0.08 80);
+  --color-line: oklch(0.2 0.015 50 / 0.14);
 
   --ease-silk: cubic-bezier(0.16, 1, 0.3, 1);
 
-  @keyframes kenburns {
-    from { transform: scale(1.16); }
-    to { transform: scale(1.02); }
-  }
   @keyframes rise {
     from { transform: translateY(110%); }
     to { transform: translateY(0); }
@@ -31,31 +26,25 @@
     from { opacity: 0; }
     to { opacity: 1; }
   }
-  @keyframes drift {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
-  }
-  /* a hero picture settling slowly while it holds */
+  /* a photograph settling slowly while it holds */
   @keyframes settle {
-    from { transform: scale(1.1); }
+    from { transform: scale(1.08); }
     to { transform: scale(1); }
   }
-  /* the gauge's timer bar */
-  @keyframes fill {
-    from { transform: scaleY(0); }
-    to { transform: scaleY(1); }
+  /* the hero's timer line */
+  @keyframes grow {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
   }
-  /* the galley riding the swell */
-  @keyframes bob {
-    0%, 100% { transform: translateY(0) rotate(-1.2deg); }
-    50% { transform: translateY(-5px) rotate(1.2deg); }
+  @keyframes cue {
+    0% { transform: translateY(-100%); }
+    60%, 100% { transform: translateY(220%); }
   }
 }
 
-/* next/font sets its variables on <html>, so :root can read them */
 @theme inline {
-  --font-display: var(--font-marcellus), ui-serif, Georgia, serif;
-  --font-sans: var(--font-jost), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-fraunces), ui-serif, Georgia, serif;
+  --font-sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
   --font-phoenician: var(--font-phoenician-src), serif;
 }
 
@@ -65,31 +54,32 @@
     overflow-x: clip;
   }
   html {
-    background: var(--color-cedar);
-    color: var(--color-sand);
+    background: var(--color-paper);
+    color: var(--color-ink);
     -webkit-font-smoothing: antialiased;
   }
   body {
     font-family: var(--font-sans);
     font-size: 1rem;
-    line-height: 1.65;
-    background: var(--color-cedar);
+    line-height: 1.7;
+    background: var(--color-paper);
   }
   h1,
   h2,
   h3 {
     font-family: var(--font-display);
-    font-weight: 400;
+    font-weight: 300;
+    font-variation-settings: "SOFT" 30, "WONK" 0, "opsz" 144;
     overflow-wrap: break-word;
     min-width: 0;
   }
   ::selection {
-    background: var(--color-murex);
-    color: var(--color-sand);
+    background: var(--color-pome);
+    color: var(--color-paper);
   }
   :focus-visible {
-    outline: 2px solid var(--color-brass);
-    outline-offset: 3px;
+    outline: 1px solid var(--color-pome);
+    outline-offset: 4px;
   }
   html.lenis,
   html.lenis body {
@@ -105,33 +95,46 @@
     margin-inline: auto;
     width: 100%;
     max-width: 1440px;
-    padding-inline: 1rem;
+    padding-inline: 1.25rem;
   }
   @media (min-width: 768px) {
     .wrap {
-      padding-inline: 3rem;
+      padding-inline: 3.5rem;
     }
   }
+
   .display {
     font-family: var(--font-display);
-    font-weight: 400;
-    letter-spacing: -0.01em;
+    font-weight: 300;
+    font-variation-settings: "SOFT" 30, "WONK" 0, "opsz" 144;
+    letter-spacing: -0.02em;
   }
-  .section-title {
-    font-size: clamp(2.5rem, 5.2vw, 5.25rem);
-    line-height: 1;
-    letter-spacing: -0.01em;
+  .swash {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 300;
+    font-variation-settings: "SOFT" 30, "WONK" 0, "opsz" 144;
+  }
+  .title {
+    font-size: clamp(2.5rem, 5vw, 5rem);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
   }
   .lede {
     max-width: 34rem;
     font-size: 1.0625rem;
-    font-weight: 300;
     line-height: 1.75;
-    color: var(--color-stone);
+    color: var(--color-ink-soft);
   }
-  .label {
-    font-size: 0.9375rem;
-    line-height: 1.4;
+  /* small tracked capitals */
+  .sign {
+    font-family: var(--font-sans);
+    font-variation-settings: "wdth" 90;
+    font-weight: 500;
+    font-size: 0.72rem;
+    line-height: 1.3;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
   }
   .glyph {
     font-family: var(--font-phoenician);
@@ -146,9 +149,13 @@
     justify-content: center;
     overflow: hidden;
     white-space: nowrap;
-    padding-inline: 1.75rem;
-    font-size: 0.9375rem;
+    padding-inline: 2rem;
+    font-family: var(--font-sans);
+    font-variation-settings: "wdth" 90;
     font-weight: 500;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
     border: 1px solid transparent;
     isolation: isolate;
     transition:
@@ -171,23 +178,44 @@
   .btn:active {
     transform: scale(0.98);
   }
-  .btn-brass {
-    background: var(--color-brass);
-    color: var(--color-cedar);
+  .btn-pome {
+    background: var(--color-pome);
+    color: var(--color-paper);
   }
-  .btn-brass::before {
-    background: var(--color-sand);
+  .btn-pome::before {
+    background: var(--color-ink);
   }
-  .btn-line {
-    border-color: var(--color-brass-deep);
-    color: var(--color-sand);
+  .btn-ink {
+    border-color: var(--color-ink);
+    color: var(--color-ink);
   }
-  .btn-line::before {
-    background: var(--color-brass);
+  .btn-ink::before {
+    background: var(--color-ink);
   }
-  .btn-line:hover {
-    color: var(--color-cedar);
-    border-color: var(--color-brass);
+  .btn-ink:hover {
+    color: var(--color-paper);
+  }
+  .btn-light {
+    border-color: oklch(0.972 0.01 86 / 0.5);
+    color: var(--color-paper);
+  }
+  .btn-light::before {
+    background: var(--color-paper);
+  }
+  .btn-light:hover {
+    color: var(--color-ink);
+    border-color: var(--color-paper);
+  }
+
+  .btn-paper {
+    background: var(--color-paper);
+    color: var(--color-ink);
+  }
+  .btn-paper::before {
+    background: var(--color-pome);
+  }
+  .btn-paper:hover {
+    color: var(--color-paper);
   }
 
   .link-underline {
@@ -198,55 +226,51 @@
     background-size: 100% 1px;
   }
 
+  .more {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.9rem;
+    font-family: var(--font-sans);
+    font-variation-settings: "wdth" 90;
+    font-weight: 500;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+  .more::after {
+    content: "";
+    width: 2.25rem;
+    height: 1px;
+    background: currentColor;
+    transition: width 0.5s var(--ease-silk);
+  }
+  .more:hover::after {
+    width: 3.5rem;
+  }
+
+  /* fields live on the night ground */
   .field {
     width: 100%;
-    min-height: 50px;
+    min-height: 52px;
     border: 0;
-    border-bottom: 1px solid var(--color-rule);
+    border-bottom: 1px solid oklch(0.972 0.01 86 / 0.25);
     background: transparent;
-    padding: 0.75rem 0;
-    font-size: 1rem;
-    color: var(--color-sand);
+    padding: 0.7rem 0;
+    font-size: 1.0625rem;
+    color: var(--color-paper);
     border-radius: 0;
     color-scheme: dark;
     transition: border-color 0.3s ease;
   }
   .field:hover {
-    border-color: var(--color-stone);
+    border-color: oklch(0.972 0.01 86 / 0.55);
   }
   .field:focus-visible {
     outline: none;
-    border-color: var(--color-brass);
-    box-shadow: 0 1px 0 0 var(--color-brass);
+    border-color: var(--color-lantern);
   }
   select.field option {
-    background: var(--color-raised);
-  }
-
-  /* lamplit scrim over full-bleed photographs */
-  .scrim {
-    background:
-      linear-gradient(to bottom, var(--color-scrim), transparent 30%, transparent 50%, var(--color-cedar)),
-      var(--color-scrim);
-  }
-
-  /* one soft off-centre glow, like a lamp in the next room */
-  .lamp {
-    background: radial-gradient(760px 520px at 82% -10%, oklch(0.76 0.11 78 / 0.09), transparent 60%), var(--color-cedar);
-  }
-  .lamp-murex {
-    background: radial-gradient(820px 560px at 12% 110%, oklch(0.4 0.13 350 / 0.2), transparent 62%), var(--color-cedar);
-  }
-
-  /* film grain over everything, so flat dark reads as old wood */
-  .grain::after {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: 70;
-    pointer-events: none;
-    opacity: 0.07;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    background: var(--color-night-up);
   }
 }
 
@@ -261,11 +285,10 @@
   clip-path: inset(100% 0 0 0);
 }
 
-/* Hero lines rise out of a mask after the curtain lifts. */
 .line-mask {
   display: block;
   overflow: hidden;
-  padding-bottom: 0.06em;
+  padding-bottom: 0.08em;
 }
 .line-mask > span {
   display: block;

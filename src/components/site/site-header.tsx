@@ -1,30 +1,26 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
-import { Seal, Ship } from "@/components/site/logo";
 import { SITE } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 const LINKS = [
   ["/menu", "Menu"],
-  ["/menu#bar", "The bar"],
-  ["/#alphabet", "Your name"],
-  ["/#house", "Find us"],
+  ["/our-story", "Our story"],
+  ["/visit", "Visit"],
 ];
 
-/**
- * A letterhead, not a bar: the seal and name sit small in the top-left corner and the links run as one
- * line in the top-right. Over the photographs they stand on the image; past them, each corner becomes
- * its own small cedar tab, leaving the middle of the screen open.
- */
+/** A full-width bar: links to the left, the name in the centre, the telephone and reservations to the right. */
 export function SiteHeader() {
-  const [solid, setSolid] = useState(false);
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const path = usePathname();
 
   useEffect(() => {
-    const on = () => setSolid(window.scrollY > window.innerHeight * 0.6);
+    const on = () => setScrolled(window.scrollY > 24);
     on();
     window.addEventListener("scroll", on, { passive: true });
     return () => window.removeEventListener("scroll", on);
@@ -34,83 +30,90 @@ export function SiteHeader() {
     document.documentElement.style.overflow = open ? "hidden" : "";
   }, [open]);
 
-  const tab = cn("transition-[background-color,padding] duration-700 ease-[var(--ease-silk)]", solid ? "bg-cedar/95 px-4 py-2.5" : "bg-transparent px-0 py-0");
+  useEffect(() => {
+    const esc = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    window.addEventListener("keydown", esc);
+    return () => window.removeEventListener("keydown", esc);
+  }, []);
 
   return (
     <>
-      <header className="pointer-events-none fixed inset-x-0 top-0 z-40">
-        <div className="flex items-start justify-between gap-6 px-4 pt-4 md:px-6 md:pt-5">
-          <Link href="/" aria-label="Feniqia home" className={cn("pointer-events-auto flex items-center gap-3 text-sand", tab)}>
-            <Seal className="w-9 shrink-0 md:w-10" />
-            <span className="label leading-tight">
-              Feniqia
-              <span className="block text-sand/70">Marchand de Liban</span>
-            </span>
-          </Link>
-
-          <nav aria-label="Primary" className={cn("pointer-events-auto flex items-center gap-5 label", tab)}>
-            <p className="hidden lg:block">
-              {LINKS.map(([href, label], i) => (
-                <span key={href}>
-                  <Link href={href} className="link-underline py-1 transition-colors hover:text-brass">
-                    {label}
-                  </Link>
-                  {i < LINKS.length - 1 && <span className="text-sand/60">, </span>}
-                </span>
-              ))}
-            </p>
-            <Link href="/#book" className="btn btn-brass !hidden !min-h-11 !px-5 sm:!inline-flex">
-              Book
-            </Link>
-            <button onClick={() => setOpen(true)} className="-mr-1 min-h-11 px-1 hover:text-brass lg:hidden" aria-expanded={open} aria-controls="mobile-nav">
+      <header
+        className={cn(
+          "fixed inset-x-0 top-0 z-40 border-b bg-paper text-ink transition-[border-color,box-shadow] duration-500",
+          scrolled ? "border-line shadow-[0_10px_30px_-24px_oklch(0.2_0.015_50/0.5)]" : "border-transparent",
+        )}
+      >
+        <div className="grid h-[68px] grid-cols-[1fr_auto_1fr] items-center px-5 md:h-[84px] md:px-10">
+          <nav aria-label="Primary" className="flex items-center gap-8">
+            <button onClick={() => setOpen(true)} className="sign -ml-1 min-h-11 px-1 lg:hidden" aria-expanded={open} aria-controls="site-menu">
               Menu
             </button>
+            {LINKS.map(([href, label]) => (
+              <Link
+                key={href}
+                href={href}
+                aria-current={path === href ? "page" : undefined}
+                className={cn("sign link-underline hidden py-1 lg:inline-block", path === href && "bg-[length:100%_1px]")}
+              >
+                {label}
+              </Link>
+            ))}
           </nav>
+
+          <Link href="/" aria-label="Feniqia home" className="flex flex-col items-center leading-none">
+            <span className="display text-[1.2rem] tracking-[0.2em] md:text-[1.9rem] md:tracking-[0.28em]">FENIQIA</span>
+            <span className="sign mt-1.5 hidden text-[0.6rem] tracking-[0.32em] text-ink-soft md:block">Marchand de Liban</span>
+          </Link>
+
+          <div className="flex items-center justify-end gap-8">
+            <a href={`tel:+${SITE.phone}`} className="sign link-underline hidden py-1 xl:inline-block">
+              {SITE.phoneDisplay}
+            </a>
+            <Link href="/reservations" className="btn btn-pome !min-h-10 !px-4 md:!min-h-11 md:!px-6">
+              Reserve
+            </Link>
+          </div>
         </div>
       </header>
 
       <div
-        id="mobile-nav"
+        id="site-menu"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Site menu"
         className={cn(
-          "fixed inset-0 z-50 flex flex-col bg-murex-deep transition-[clip-path,visibility] duration-700 ease-[var(--ease-silk)] lg:hidden",
-          open ? "visible [clip-path:inset(0_0_0_0)]" : "invisible [clip-path:inset(0_0_0_100%)]",
+          "fixed inset-0 z-50 flex flex-col bg-paper text-ink transition-[opacity,visibility] duration-500 lg:hidden",
+          open ? "visible opacity-100" : "invisible opacity-0",
         )}
       >
-        <div className="flex items-start justify-between px-4 pt-4">
-          <span className="flex items-center gap-3 label leading-tight">
-            <Seal className="w-9" />
-            <span>
-              Feniqia
-              <span className="block text-sand/70">Marchand de Liban</span>
-            </span>
-          </span>
-          <button onClick={() => setOpen(false)} className="-mr-1 min-h-11 px-1 label hover:text-brass">
+        <div className="grid h-[68px] grid-cols-[1fr_auto_1fr] items-center border-b border-line px-5">
+          <button onClick={() => setOpen(false)} tabIndex={open ? 0 : -1} className="sign -ml-1 min-h-11 justify-self-start px-1">
             Close
           </button>
+          <span className="display text-[1.55rem] leading-none tracking-[0.28em]">FENIQIA</span>
         </div>
-        <ul className="mt-16 flex-1 px-4">
-          {[...LINKS, ["/#book", "Book a table"]].map(([href, label], i) => (
+        <ul className="flex flex-1 flex-col items-center justify-center gap-2">
+          {[["/", "Home"], ...LINKS, ["/reservations", "Reservations"]].map(([href, label], i) => (
             <li key={href} className="overflow-hidden">
               <Link
                 href={href}
                 onClick={() => setOpen(false)}
                 tabIndex={open ? 0 : -1}
-                className={cn("block py-2 font-display text-[2.75rem] leading-tight transition-transform duration-700 ease-[var(--ease-silk)] hover:text-brass", open ? "translate-x-0" : "translate-x-full")}
-                style={{ transitionDelay: open ? `${0.12 + i * 0.05}s` : "0s" }}
+                className={cn("display block py-1 text-[2.6rem] transition-transform duration-700 ease-[var(--ease-silk)]", open ? "translate-y-0" : "translate-y-full")}
+                style={{ transitionDelay: open ? `${0.1 + i * 0.05}s` : "0s" }}
               >
                 {label}
               </Link>
             </li>
           ))}
         </ul>
-        <div className="flex items-end justify-between px-4 pb-8">
-          <div className="label text-sand/80">
-            <p>{SITE.street}, Byblos</p>
-            <a href={`tel:+${SITE.phone}`} tabIndex={open ? 0 : -1} className="hover:text-sand">
-              {SITE.phoneDisplay}
-            </a>
-          </div>
-          <Ship className="w-20 text-brass" />
+        <div className="sign pb-10 text-center leading-loose text-ink-soft">
+          {SITE.street}, Byblos
+          <br />
+          <a href={`tel:+${SITE.phone}`} tabIndex={open ? 0 : -1}>
+            {SITE.phoneDisplay}
+          </a>
         </div>
       </div>
     </>
