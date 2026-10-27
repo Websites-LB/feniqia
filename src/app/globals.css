@@ -35,6 +35,16 @@
     from { transform: translateX(0); }
     to { transform: translateX(-50%); }
   }
+  /* a hero picture settling slowly while it holds */
+  @keyframes settle {
+    from { transform: scale(1.1); }
+    to { transform: scale(1); }
+  }
+  /* the gauge's timer bar */
+  @keyframes fill {
+    from { transform: scaleY(0); }
+    to { transform: scaleY(1); }
+  }
   /* the galley riding the swell */
   @keyframes bob {
     0%, 100% { transform: translateY(0) rotate(-1.2deg); }

@@ -6,30 +6,20 @@ import { Seal } from "@/components/site/logo";
 import { COUNTS, HOUSE_DISHES, dish, ll } from "@/lib/menu";
 import { OWN, SITE, mapsUrl } from "@/lib/site";
 
-export function Manifesto() {
-  return (
-    <section className="lamp relative py-32 md:py-48">
-      <div className="wrap grid gap-16 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] lg:items-end lg:gap-24">
-        <p data-words className="display text-[clamp(2rem,4.2vw,4.1rem)] leading-[1.12] text-sand">
-          The Phoenicians sailed from this coast with cedar and wine, and came home with the world. In the Old Souk we keep their kind of table: many plates, bread from the taboune, something from the grill, and arak for the evening.
-        </p>
-        <figure className="relative w-full max-w-[30rem] justify-self-end" data-reveal="clip">
-          <div className="relative aspect-[4/5] overflow-hidden">
-            <div className="absolute inset-[-12%_0]" data-parallax="0.18">
-              <Image src={OWN.sign} alt="The Feniqia name cut into a great copper disc on the dining room wall" fill sizes="(min-width: 1024px) 35vw, 90vw" className="object-cover" />
-            </div>
-          </div>
-          <figcaption className="mt-4 label text-stone">Our name, cut in copper, on the dining room wall.</figcaption>
-        </figure>
-      </div>
-    </section>
-  );
-}
-
+// Two of their own photographs the cargo above does not already use.
 const PLATES = [
-  { src: OWN.makle, d: dish("Feniqia makle"), alt: "Feniqia makle in its iron pan, topped with a ring of pineapple and a cherry tomato" },
-  { src: OWN.fattouch, d: dish("Feniqia fattouch"), alt: "Fattouch with crisp bread, beside a glass of red and a cup of sesame sticks" },
-  { src: OWN.pans, d: null, alt: "A hanging iron tray of small pans: soujouk, mkanek, batata harra and ras asfour" },
+  {
+    src: OWN.pans,
+    alt: "A hanging iron tray of small pans: soujouk, mkanek, batata harra and ras asfour",
+    title: "Bil makle, all at once",
+    text: "Soujouk, mkanek, batata harra and ras asfour, each in its own small pan, hung from one iron tray.",
+  },
+  {
+    src: OWN.grill,
+    alt: "Skewers of grilled meat served upright on an iron rack, with salad, wedges and halloumi",
+    title: "From the grill, to the table",
+    text: "Skewers arrive on their own iron rack, still dripping, with the salads and the halloumi.",
+  },
 ];
 
 export function HousePlates() {
@@ -45,25 +35,15 @@ export function HousePlates() {
           </Link>
         </div>
 
-        <div className="mt-14 grid gap-6 md:mt-20 md:grid-cols-3 md:gap-8">
+        <div className="mt-14 grid gap-6 md:mt-20 md:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] md:gap-8">
           {PLATES.map((p, i) => (
-            <figure key={p.src} className={i === 1 ? "md:mt-24" : ""} data-reveal data-delay={String(i * 0.1)}>
+            <figure key={p.src} className={i === 1 ? "md:mt-32" : ""} data-reveal data-delay={String(i * 0.1)}>
               <div className="group relative aspect-[4/5] overflow-hidden bg-hold">
-                <Image src={p.src} alt={p.alt} fill sizes="(min-width: 768px) 30vw, 92vw" className="object-cover transition-transform duration-[1.4s] ease-[var(--ease-silk)] group-hover:scale-[1.04]" />
+                <Image src={p.src} alt={p.alt} fill sizes="(min-width: 768px) 50vw, 92vw" className="object-cover transition-transform duration-[1.4s] ease-[var(--ease-silk)] group-hover:scale-[1.04]" />
               </div>
-              <figcaption className="mt-5 grid grid-cols-[minmax(0,1fr)_auto] gap-x-6 border-t border-rule pt-4">
-                {p.d ? (
-                  <>
-                    <span className="font-display text-[1.6rem] leading-tight">{p.d.name}</span>
-                    <span className="font-display text-[1.25rem] leading-tight text-brass tabular-nums">{ll(p.d.price)}</span>
-                    <span className="col-span-2 mt-2 label font-light text-stone">{p.d.desc}</span>
-                  </>
-                ) : (
-                  <>
-                    <span className="col-span-2 font-display text-[1.6rem] leading-tight">Bil makle, all at once</span>
-                    <span className="col-span-2 mt-2 label font-light text-stone">Soujouk, mkanek, batata harra and ras asfour, each in its own small pan.</span>
-                  </>
-                )}
+              <figcaption className="mt-5">
+                <span className="block font-display text-[1.6rem] leading-tight">{p.title}</span>
+                <span className="mt-2 block max-w-[46ch] label font-light text-stone">{p.text}</span>
               </figcaption>
             </figure>
           ))}

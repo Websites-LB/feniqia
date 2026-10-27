@@ -12,7 +12,6 @@ gsap.registerPlugin(ScrollTrigger);
  *   data-reveal          rises into place once, as it enters
  *   data-reveal="clip"   unmasks upward
  *   data-parallax="0.15" drifts against the scroll by that fraction of its height
- *   data-words           a statement whose words light up as it scrolls past
  *   data-count="1892"    a figure that counts up once it is seen
  */
 export function ScrollFx() {
@@ -43,18 +42,6 @@ export function ScrollFx() {
         );
       });
 
-      gsap.utils.toArray<HTMLElement>("[data-words]").forEach((el) => {
-        if (!el.dataset.split) {
-          el.innerHTML = el.textContent!.trim().split(/\s+/).map((w) => `<span class="inline-block opacity-[0.16]">${w}</span>`).join(" ");
-          el.dataset.split = "1";
-        }
-        gsap.to(el.children, {
-          opacity: 1,
-          stagger: 0.08,
-          ease: "none",
-          scrollTrigger: { trigger: el, start: "top 80%", end: "bottom 45%", scrub: true },
-        });
-      });
 
       gsap.utils.toArray<HTMLElement>("[data-count]").forEach((el) => {
         const to = Number(el.dataset.count);
