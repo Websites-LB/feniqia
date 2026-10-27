@@ -3,7 +3,6 @@ import { Jost, Marcellus, Noto_Sans_Phoenician } from "next/font/google";
 
 import { ScrollFx } from "@/components/providers/scroll-fx";
 import { SmoothScroll } from "@/components/providers/smooth-scroll";
-import { ReserveBar } from "@/components/site/reserve-bar";
 import { SiteFooter } from "@/components/site/site-footer";
 import { SiteHeader } from "@/components/site/site-header";
 
@@ -36,7 +35,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           <SiteHeader />
           <main>{children}</main>
           <SiteFooter />
-          <ReserveBar />
           <ScrollFx />
         </SmoothScroll>
       </body>

@@ -40,34 +40,6 @@ export function Seal({ className }: { className?: string }) {
   );
 }
 
-/** Wordmark set in type, seal drawn, so it stays crisp at any size. */
-export function Logo({ className, title = "Feniqia, Marchand de Liban", tagline = true }: { className?: string; title?: string | null; tagline?: boolean }) {
-  return (
-    <svg
-      viewBox={tagline ? "0 0 252 100" : "0 0 252 72"}
-      className={cn("block h-auto", className)}
-      role={title ? "img" : undefined}
-      aria-label={title ?? undefined}
-      aria-hidden={title ? undefined : true}
-    >
-      <text x="0" y="60" fill="currentColor" fontSize="66" fontWeight="300" textLength="178" lengthAdjust="spacingAndGlyphs" style={{ fontFamily: "var(--font-sans)" }}>
-        Feniqia
-      </text>
-      <g transform="translate(186 6)">
-        <circle cx="31" cy="31" r="29" fill="none" stroke="currentColor" strokeWidth="2" />
-        <g transform="translate(10 14) scale(0.35)">
-          <ShipPaths />
-        </g>
-      </g>
-      {tagline && (
-        <text x="3" y="94" fill="currentColor" fontSize="17" fontWeight="400" textLength="244" lengthAdjust="spacing" style={{ fontFamily: "var(--font-sans)" }}>
-          Marchand de Liban
-        </text>
-      )}
-    </svg>
-  );
-}
-
 /** The galley's paths without their own <svg>, heavier for small sizes, for nesting inside another drawing. */
 function ShipPaths() {
   return (

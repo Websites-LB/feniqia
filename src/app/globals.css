@@ -1,4 +1,4 @@
-/* Hallmark v2.0.0 | custom, brand-led (cedar, sandstone, brass, one thread of murex purple) | genre: atmospheric | job: book a table | shape: curtain, souk hero with a galley crossing, scroll-lit statement, a voyage through 7,000 years pinned sideways, the house dishes, names from the old stories, the bar, the feed, the house, booking | nav: logo left, links right, hides on scroll down | footer: seal mast | signature: the galley that sails across the hero as you scroll | deal: manual, sloplint not run */
+/* Hallmark v2.0.0 | custom, brand-led (cedar, sandstone, brass, one field of murex purple) | genre: atmospheric | job: book a table | shape: a hero you dig through (souk, castle, colonnade, harbour, first village), scroll-lit statement, the house dishes, names from the old stories, your name in Phoenician, the bar, the feed, the house, booking | nav: letterhead corners, solid tabs past the hero | footer: the phone number as the headline on murex | signature: scrolling digs down through the ages of the tell | direction: taste-skill place-carries-it, palette and type kept | deal: seed 392668773 */
 /* waive 66: the hero carries a small scroll line, the page is a scroll story | waive 83: photography leads, this is a venue */
 
 @import "tailwindcss";
@@ -35,26 +35,10 @@
     from { transform: translateX(0); }
     to { transform: translateX(-50%); }
   }
-  @keyframes cue {
-    0% { transform: translateY(-100%); }
-    60%, 100% { transform: translateY(200%); }
-  }
-  @keyframes curtain {
-    to { transform: translateY(-100%); visibility: hidden; }
-  }
-  @keyframes logo-in {
-    0% { opacity: 0; transform: translateY(12px); }
-    40%, 75% { opacity: 1; transform: none; }
-    100% { opacity: 0; transform: translateY(-8px); }
-  }
   /* the galley riding the swell */
   @keyframes bob {
     0%, 100% { transform: translateY(0) rotate(-1.2deg); }
     50% { transform: translateY(-5px) rotate(1.2deg); }
-  }
-  @keyframes sail-in {
-    from { transform: translateX(-60vw); }
-    to { transform: translateX(0); }
   }
 }
 

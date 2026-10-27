@@ -14,15 +14,12 @@ gsap.registerPlugin(ScrollTrigger);
  *   data-parallax="0.15" drifts against the scroll by that fraction of its height
  *   data-words           a statement whose words light up as it scrolls past
  *   data-count="1892"    a figure that counts up once it is seen
- *   data-sail            sails right across its section as the section scrolls away
- *   data-voyage          a track that pins its section and slides sideways through its chapters (desktop)
  */
 export function ScrollFx() {
   const path = usePathname();
 
   useEffect(() => {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const mm = gsap.matchMedia();
     const ctx = gsap.context(() => {
       gsap.utils.toArray<HTMLElement>("[data-reveal]").forEach((el) => {
         const clip = el.dataset.reveal === "clip";
@@ -59,25 +56,6 @@ export function ScrollFx() {
         });
       });
 
-      gsap.utils.toArray<HTMLElement>("[data-sail]").forEach((el) => {
-        gsap.to(el, {
-          x: () => window.innerWidth * 0.95,
-          ease: "none",
-          scrollTrigger: { trigger: el.closest("section"), start: "top top", end: "bottom top", scrub: 1.2, invalidateOnRefresh: true },
-        });
-      });
-
-      mm.add("(min-width: 1024px)", () => {
-        gsap.utils.toArray<HTMLElement>("[data-voyage]").forEach((track) => {
-          const distance = () => track.scrollWidth - window.innerWidth;
-          gsap.to(track, {
-            x: () => -distance(),
-            ease: "none",
-            scrollTrigger: { trigger: track.closest("section"), start: "top top", end: () => `+=${distance()}`, pin: true, scrub: 1, invalidateOnRefresh: true },
-          });
-        });
-      });
-
       gsap.utils.toArray<HTMLElement>("[data-count]").forEach((el) => {
         const to = Number(el.dataset.count);
         const n = { v: 0 };
@@ -92,15 +70,10 @@ export function ScrollFx() {
     });
 
     // images and fonts settle the layout late; measure again once they have
-    // and the voyage pin was made after triggers further down, so order them by position first
-    const refresh = () => {
-      ScrollTrigger.sort();
-      ScrollTrigger.refresh();
-    };
+    const refresh = () => ScrollTrigger.refresh();
     window.addEventListener("load", refresh);
     const t = setTimeout(refresh, 600);
     return () => {
-      mm.revert();
       ctx.revert();
       clearTimeout(t);
       window.removeEventListener("load", refresh);

@@ -1,17 +1,16 @@
-import { Curtain, Hero } from "@/components/home/hero";
+import { Hero } from "@/components/home/hero";
 import { Instagram } from "@/components/home/instagram";
+import { NameStone } from "@/components/home/name-stone";
 import { Bar, Book, House, HousePlates, Manifesto, Marquee, Names } from "@/components/home/sections";
-import { Voyage } from "@/components/home/voyage";
 
 export default function Home() {
   return (
     <>
-      <Curtain />
       <Hero />
       <Manifesto />
-      <Voyage />
       <HousePlates />
       <Names />
+      <NameStone />
       <Marquee />
       <Bar />
       <Instagram />

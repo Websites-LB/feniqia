@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
+import { NAME_EVENT } from "@/components/home/name-stone";
 import { waLink } from "@/lib/site";
 
 const TIMES = ["9:00", "10:00", "11:00", "12:30", "13:30", "14:30", "17:00", "18:00", "19:00", "20:00", "20:30", "21:00", "21:30", "22:00"];
@@ -9,6 +10,15 @@ const TIMES = ["9:00", "10:00", "11:00", "12:30", "13:30", "14:30", "17:00", "18
 /** Bookings go to the restaurant on WhatsApp, pre-written, until an online booking system is chosen. */
 export function ReserveForm() {
   const [f, setF] = useState({ name: "", date: "", time: "20:30", guests: "2", note: "" });
+  // a name written on the stone arrives here, ready to book under
+  useEffect(() => {
+    const take = (e: Event) => {
+      const name = (e as CustomEvent<string>).detail;
+      if (name) setF((f) => ({ ...f, name }));
+    };
+    window.addEventListener(NAME_EVENT, take);
+    return () => window.removeEventListener(NAME_EVENT, take);
+  }, []);
   const set = (k: keyof typeof f) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => setF({ ...f, [k]: e.target.value });
 
   const submit = (e: React.FormEvent) => {
